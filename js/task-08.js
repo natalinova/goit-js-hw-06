@@ -5,9 +5,11 @@ function formSubmit(event) {
     const {
     elements: { email, password }
 } = event.currentTarget;
-    if (email.value === "" || password.value === "") {
-        alert("Заповніть всі дані!")
-    };
+    if (email.value !== "" & password.value !== "") {
         console.log(`Email: ${email.value}, password: ${password.value}`);
         event.currentTarget.reset();
+    }
+    else {
+        alert("Заповніть всі дані!")
+    }
 }
