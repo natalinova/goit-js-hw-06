@@ -1,36 +1,32 @@
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
-const allConst = { // створено загальний об єкт для всіх const - Репета
-  commonBlock: document.querySelector('#controls'),//подія на загальному div
-  input: document.querySelector('input'),//форма вводу кількості елементів
-  create: document.querySelector('[data-create]'),//створення div
-  destroy: document.querySelector('[data-destroy]') //кнопка знищення div
-}
-console.log(allConst)//просто щоб перевірити що все створилось ок
-allConst.input.addEventListener('input', onInputNumber); // слухач input 
-function onInputNumber(event) {//
-  const amount = event.currentTarget.value
-  console.log(amount); // щоб побачити що виводиться правильне число - правильне, ок
-  return amount // я повертаю значення але це неправильно
+const allConst = { 
+  commonBlock: document.querySelector('#controls'),
+  input: document.querySelector('input'),
+  create: document.querySelector('[data-create]'),
+  destroy: document.querySelector('[data-destroy]') 
 }
 
 allConst.create.addEventListener('click', createBoxes) 
-function createBoxes(amount) { // от я не знаю як вставити значення з попередньої функції сюди! 
-// логічно, що не можу вставити - вона ж визначена в іншій функції а не глобально :(
+function createBoxes() { 
+  const amount = allConst.input.value;
   let arrayBlock = [];
-  for (i = 0; i < amount; i += 1) {
+  for (let i = 0; i < amount; i += 1) {
     const newItem = document.createElement('div');
+    console.log(newItem);
     newItem.style.backgroundColor = getRandomHexColor();
-    newItem.style.width = '(30 + (i * 10))px';
-    newItem.style.width = '(30 + i * 10)px';
-    arrayBlock.push(newItem)
+    const sizeItem = 30 + i * 10;
+    newItem.style.width = `${sizeItem}px`;
+    newItem.style.height = `${sizeItem}px`;
+    console.log(newItem);
+    arrayBlock.push(newItem);
   }
   allConst.commonBlock.append(...arrayBlock);
 }
 
 allConst.destroy.addEventListener('click', destroyBlock)
 function destroyBlock() {
-  const arrayDestroy = allConst.commonBlock.querySelectorAll('div')
-  arrayDestroy.remove()
+  const arrayDestroy = allConst.commonBlock.querySelectorAll('div');
+  arrayDestroy.forEach (itemForDestroy => itemForDestroy.remove()) 
 }
